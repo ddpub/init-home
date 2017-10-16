@@ -1,0 +1,74 @@
+set nocompatible
+
+filetype on
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+"репозитории на github
+Bundle 'gmarik/vundle'
+Bundle 'maksimr/vim-jsbeautify'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'vim-syntastic/syntastic'
+
+"репозитории vim/scripts
+Bundle 'phpcs.vim'
+Bundle 'vim-soy'
+
+
+scriptencoding utf-8
+set encoding=utf-8
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+set smarttab
+set et 
+set autoindent
+
+set wrap
+set ai
+
+
+set showmatch
+set hlsearch
+set incsearch
+set ignorecase
+
+set lz
+
+set listchars=tab:··
+set list
+
+set ffs=unix,dos,mac
+set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
+
+set guioptions-=T 
+
+
+if has('gui')
+if has('win32')
+au GUIEnter * call libcallnr('maximize', 'Maximize', 1)
+elseif has('gui_gtk2')
+au GUIEnter * :set lines=99999 columns=99999
+endif
+endif
+
+set number
+
+if has('gui')
+if has('win32')
+set guifont=Lucida_Console:h12:cRUSSIAN::
+else
+set guifont=Inconsolata\ 12
+endif
+endif
+
+map <c-f> :call JsBeautify()<cr>
+map <C-d> :% ! php_beautifier --indent_spaces=4 --filters="IndentStyles(style=k&r) ArrayNested() NewLines(before=T_CLASS:public:private:protected:function)"<cr>
+let g:phpcs_std_list="PSR2" 
+let g:phpcs_max_output = 0
+
+
+" Syntastic
+let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
