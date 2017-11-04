@@ -13,7 +13,7 @@ Bundle 'vim-syntastic/syntastic'
 "репозитории vim/scripts
 Bundle 'phpcs.vim'
 Bundle 'vim-soy'
-
+Bundle 'vim-flake8'
 
 scriptencoding utf-8
 set encoding=utf-8
@@ -63,8 +63,8 @@ set guifont=Inconsolata\ 12
 endif
 endif
 
-map <c-f> :call JsBeautify()<cr>
-map <C-d> :% ! php_beautifier --indent_spaces=4 --filters="IndentStyles(style=k&r) ArrayNested() NewLines(before=T_CLASS:public:private:protected:function)"<cr>
+map <c-k><c-j> :call JsBeautify()<cr>
+map <c-k><c-h> :% ! php_beautifier --indent_spaces=4 --filters="IndentStyles(style=k&r) ArrayNested() NewLines(before=T_CLASS:public:private:protected:function)"<cr>
 let g:phpcs_std_list="PSR2" 
 let g:phpcs_max_output = 0
 
@@ -72,3 +72,9 @@ let g:phpcs_max_output = 0
 " Syntastic
 let g:syntastic_php_checkers=['php', 'phpcs']
 let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
+map <c-k><c-p> :call phpcs#phpcsCheck()<cr>
+
+" vim-flake8
+filetype plugin on
+" autocmd BufNewFile,BufRead *.py set ft=python
+autocmd FileType python map <buffer> <c-k><c-y> :call Flake8()<cr>
